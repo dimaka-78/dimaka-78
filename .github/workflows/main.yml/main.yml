@@ -11,6 +11,6 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - name: walk
+    - name: walker
       run: for (;;){$i++; Write-Host $i ; Start-Sleep -s 10}
           
